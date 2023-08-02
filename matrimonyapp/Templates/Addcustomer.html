@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="{% url 'savecustomer_fn' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="card-block">
+<h3 class="sub-title">Add customer</h3>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Customer Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_name">
+        </div>
+    </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Customer pic</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" name="cus_pic">
+                    </div>
+                </div>
+
+
+   <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Contact no:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_num">
+        </div>
+    </div>
+     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" name="cus_mail">
+        </div>
+    </div>
+     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Dob:</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" name="cus_dob">
+        </div>
+    </div>
+     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">City:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_city">
+        </div>
+    </div>
+    <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Address:</label>
+                    <div class="col-sm-10">
+                        <textarea rows="5" cols="5" class="form-control" placeholder="" name="cus_ads"></textarea>
+                    </div>
+                </div>
+    <div>
+        <h5><u>Family and other details</u></h5>
+    </div><br><br>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Father's name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_fname">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Mother's name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_mname">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Parent contact:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_pcont">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Work address:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_wadrs">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Hobby:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_hob">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Qualification:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_quali" value="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Occupation:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_occu">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Caste:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_cast">
+        </div>
+    </div>
+    <div class="col-sm-6">
+                                <input type="submit" style="margin-left:160px;width:200px;" class="form-control form-bg-info" placeholder=".form-bg-info">
+                            </div>
+
+
+
+        </div>
+     </form>
+
+</body>
+</html>
+{% endblock %}

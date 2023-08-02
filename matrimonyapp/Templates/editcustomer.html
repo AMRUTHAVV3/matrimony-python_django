@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="{% url  'updatecategory'  dataid=customer.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="card-block">
+<h3 class="sub-title">Add customer</h3>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Customer Name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_name" value="{{customer.cname}}">
+        </div>
+    </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Customer pic</label>
+                    <div class="col-sm-10">
+                         <img src="{{customer.cpic.url}}" width="100px" height="100px">
+                        <input type="file" class="form-control" name="cus_pic" >
+                    </div>
+                </div>
+
+
+   <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Contact no:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_num" value="{{customer.cno}}">
+        </div>
+    </div>
+     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Email:</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" name="cus_mail" value="{{customer.emil}}">
+        </div>
+    </div>
+     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Dob:</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" name="cus_dob" value="{{customer.dob}}">
+        </div>
+    </div>
+     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">City:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_city" value="{{customer.city}}">
+        </div>
+    </div>
+    <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Address:</label>
+                    <div class="col-sm-10">
+                        <textarea rows="5" cols="5" class="form-control" placeholder="" name="cus_ads">{{customer.adrs}}</textarea>
+                    </div>
+                </div>
+    <div>
+        <h5><u>Family and other details</u></h5>
+    </div><br><br>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Father's name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_fname" value="{{customer.fname}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Mother's name:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_mname" value="{{customer.mname}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Parent contact:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_pcont" value="{{customer.fcont}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Work address:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_wadrs" value="{{customer.wadrs}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Hobby:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_hob" value="{{customer.hoby}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Qualification:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_quali" value="{{customer.quali}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Occupation:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_occu" value="{{customer.occutn}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Caste:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="cus_cast" value="{{customer.cast}}">
+        </div>
+    </div>
+    <div class="col-sm-6">
+                                <input type="submit" style="margin-left:160px;width:200px;" class="form-control form-bg-info" placeholder=".form-bg-info" >
+                            </div>
+
+
+
+        </div>
+     </form>
+
+</body>
+</html>
+{% endblock %}

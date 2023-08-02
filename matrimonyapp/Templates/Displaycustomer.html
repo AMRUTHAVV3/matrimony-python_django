@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-block table-border-style">
+<div class="table-responsive">
+    <table class="table table-active"  >
+        <thead >
+            <tr>
+                <th>Customer name</th>
+                <th>Customer pic</th>
+                <th>Contact no</th>
+                <th>Email</th>
+                <th>Dob</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Father's name</th>
+                <th>Mother's name</th>
+                <th>Father's contact</th>
+                <th>Work address</th>
+                <th>Hobby</th>
+                <th>Qualification</th>
+                <th>Occupation</th>
+
+                <th>Caste</th>
+
+            </tr>
+            </thead>
+            <tbody>
+             {% for i in data %}
+
+                <tr class="table-info">
+<!--                    <th scope="row">1</th>-->
+                    <td>{{i.cname}}</td>
+                    <td><img src="{{i.cpic.url}}" width="80px" height="80px"></td>
+                    <td>{{i.cno}}</td>
+                    <td>{{i.emil}}</td>
+                    <td>{{i.dob}}</td>
+                    <td>{{i.city}}</td>
+                    <td>{{i.adrs}}</td>
+                    <td>{{i.fname}}</td>
+                    <td>{{i.mname}}</td>
+                    <td>{{i.fcont}}</td>
+                    <td>{{i.wadrs}}</td>
+                    <td>{{i.hoby}}</td>
+                    <td>{{i.quali}}</td>
+                    <td>{{i.occutn}}</td>
+                    <td>{{i.cast}}</td>
+                    <form action="{% url 'editcustomer_fn'  dataid=i.id %}">
+                    <td>
+                   <button type="submit" class="btn btn-info">edit</button>
+                    </td>
+                  </form>
+                  <form action="{% url 'deletecustomer_fn'  dataid=i.id %}">
+                    <td>
+                      <button type="submit" class="btn btn-danger">delete</button>
+                    </td>
+                  </form>
+
+
+
+                </tr>
+             {% endfor %}
+
+            </tbody>
+            </table>
+            </div>
+            </div>
+
+
+</body>
+</html>
+{% endblock %}
