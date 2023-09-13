@@ -13,6 +13,8 @@
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="{% static 'gallery/assets/css/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
             <link rel="stylesheet" href="{% static 'gallery/assets/css/owl.carousel.min.css' %}">
             <link rel="stylesheet" href="{% static 'gallery/assets/css/flaticon.css' %}">
             <link rel="stylesheet" href="{% static 'gallery/assets/css/slicknav.css' %}">
@@ -58,11 +60,20 @@
                                     <ul id="navigation">
                                         <li><a href="{% url 'home_fn' %}">Home</a></li>
                                         <li><a href="{% url 'sendmessage_fn' %}">Send message</a></li>
-                                        <li><a href="gallery.html">Requested messages</a></li>
-                                        <li><a href="booking.html">Send feedback</a></li>
+                                        <li><a href="{% url 'requestedmsg_fn' %}">Requested messages</a></li>
+                                        <li><a href="{% url 'text_feedback_fn' %}">Send feedback</a></li>
                                         <li>
                                             {% if request.session.username %}
                                             <a href="">{{request.session.username}}</a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'displayuser_details' %}">Edit profile</a></li>
+                                                <li><a href="{% url 'text_successstory_fn' %}">Upload success story</a></li>
+                                                <li><a href="{% url 'viewstory_fn' %}">Your success story</a></li>
+<!--                                                <li><a href="{% url 'viewallstories2' %}">Your success story</a></li>-->
+
+
+
+                                            </ul>
                                         </li>
                                          <li>
 
@@ -74,7 +85,7 @@
 
                                                 <li><a href="{% url 'malegallery_fn'  %}">Male</a></li>
 
-                                                <li><a href="elements.html">Others</a></li>
+                                                <li><a href="{% url 'viewallstories'  %}">success stories</a></li>
 
                                             </ul>
                                         </li>
@@ -115,7 +126,7 @@
                         <img src="{{profile.picture.url}}" width="220px;height:300px;" style="margin-left:-1200px;margin-top:20px;">
 <!--                    <input type="text" style="width:500px;margin-left:600px;margin-top:-40px;" >-->
                 </div>
-<!--                                <h2>All Profiles</h2>-->
+                                <h3 style="color:white;">FEEDBACK</h3>
                             </div>
                         </div>
                     </div>
@@ -147,7 +158,7 @@
                       <input type="submit" placeholder="send">
                     </div>
 
-                       <input type="text" value="{{request.session.username}}" name="username">
+                       <input type="hidden" value="{{request.session.username}}" name="username">
                     </form>
             </div>
 
@@ -395,104 +406,89 @@
         <!-- our Memories End-->
 
     </main>
-   <footer>
-
-       <!-- Footer Start-->
-      <div class="footer-main footer-bg">
+<footer>
+    <!-- Footer Start-->
+    <div class="footer-main" data-background="{% static 'user/assets/img/gallery/section_bg4.png' %}">
         <div class="footer-area footer-padding">
             <div class="container">
                 <div class="row d-flex justify-content-between">
-                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-8">
-                       <div class="single-footer-caption mb-50">
-                         <div class="single-footer-caption mb-30">
-                              <!-- logo -->
-                             <div class="footer-logo">
-                                 <a href="index.html"><img src="{% static 'gallery/assets/img/logo/logo2_footer.png' %}" alt=""></a>
-                             </div>
-                             <div class="footer-tittle">
-                                 <div class="footer-pera">
-                                     <p class="info1">Seddo eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-                                     <p class="info2">theaisle@elated-themes.com</p>
-                                     <p class="info2">+(123) 456 - 7890 - 456 - 7890</p>
-                                     <p class="info2"> 35 W 46nd Street New York</p>
-
+                    <div class="col-xl-2  col-lg-3 col-md-5 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <div class="footer-tittle">
+                                    <h5 style="color:white;">Choice Matrimony</h5>
+                                    <a href="index.html"><img src="{% static 'user/assets/img/logo/choice1.jpg' %}"  width="100" height="100" alt=""></a>
                                 </div>
-                             </div>
-                         </div>
-                       </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7">
+                    <div class="col-xl-3  col-lg-3 col-lg-2 col-md-5 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
-                                <h4>WEDDING PLANNER FAQS</h4>
+                                <h5 style="color:white;">MATRIMONY INFO</h5>
                                 <ul>
-                                    <li><a href="#">Why Hire a Planner?</a></li>
-                                    <li><a href="#">How Can I Make An</a></li>
-                                    <li><a href="#">Appointment?</a></li>
-                                    <li><a href="#">How to Choose a Venue</a></li>
-                                    <li><a href="#">Event Catalogue</a></li>
-                                    <li><a href="#"> Accept</a></li>
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#">About us</a></li>
+                                    <li><a href="{% url 'contact_fn' %}">Contact us</a></li>
+                                    <li><a href="#">Privacy policy</a></li>
+                                    <li><a href="#">Terms & Conditions </a></li>
+                                    <li><a href="#"> </a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 col-md-5 col-sm-7">
+                    <div class="col-xl-2  col-lg-3 col-md-5 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
                                 <h4>ABOUT US</h4>
                                 <ul>
-                                    <li><a href="#">Bridesmaids</a></li>
-                                    <li><a href="#">November 22, 2020</a></li>
-                                    <li><a href="#">Groomsmen</a></li>
-                                    <li><a href="#">November 22, 2020</a></li>
-                                    <li><a href="#">JEWELRY</a></li>
-                                    <li><a href="#">November 22, 2020</a></li>
+                                    <li><i class="fa-solid fa-location-dot"></i><a href="#" style="margin-left:5px;">Edappally</a></li>
+                                    <li><i class="fa-solid fa-phone"></i><a href="#" style="margin-left:7px;">9876564536</a></li>
+                                    <li><i class="fa-solid fa-envelope"></i><a href="#" style="margin-left:7px;">choice@gmail.com</a></li>
+
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Instagram</h4>
-                            </div>
-                            <div class="instagram-gellay">
-                                <ul class="insta-feed">
-                                    <li><a href="#"><img src="{% static 'gallery/assets/img/post/instra1.jpg' %}" alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'gallery/assets/img/post/instra2.jpg' %}" alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'gallery/assets/img/post/instra3.jpg' %}" alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'gallery/assets/img/post/instra4.jpg' %}" alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'gallery/assets/img/post/instra5.jpg' %}" alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'gallery/assets/img/post/instra6.jpg' %}" alt=""></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="col-xl-2  col-lg-3 col-md-5 col-sm-6">-->
+<!--                        <div class="single-footer-caption mb-50">-->
+<!--                            <div class="footer-tittle">-->
+<!--                                <h4>LOCATION</h4>-->
+<!--                                <ul>-->
+<!--                                  <li> <i class="fa-brands fa-facebook fa-sm"></i>-->
+<!--                                    <i class="fa-solid fa-location-dot"></i>-->
+<!--                                    <i class="fa-solid fa-phone"></i>-->
+<!--                                    <i class="fa-solid fa-envelope"></i>-->
+<!--                                    <li><a href="#">Coloelib.com</a></li>-->
+<!--                                    <li>+(123) 456 - 7890 - 456 35 W 46nd Street NY</li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
-        <!-- footer-bottom aera -->
-        <div class="footer-bottom-area footer-bg">
+        <i class="fa-brands fa-facebook"></i>
+        <!-- footer-bottom area -->
+        <div class="footer-bottom-area">
             <div class="container">
                 <div class="footer-border">
-                     <div class="row d-flex align-items-center">
-                         <div class="col-xl-12 ">
-                             <div class="footer-copy-right text-center">
-                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-xl-12 ">
+                                <div class="footer-copy-right text-center">
+                                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#" target="_blank">Colorlib</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                             </div>
-                         </div>
-                     </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
-      </div>
-       <!-- Footer End-->
-
-   </footer>
-
+    </div>
+    <!-- Footer End-->
+</footer>
 	<!-- JS here -->
 
 		<!-- All JS Custom Plugins Link Here here -->

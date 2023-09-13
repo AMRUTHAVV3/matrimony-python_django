@@ -12,5 +12,6 @@ urlpatterns=[
        path('admin_login/', views.admin_login, name='admin_login'),
        path('admin_logout/',views.admin_logout, name='admin_logout'),
        path('viewfeedback_fn/',views.viewfeedback_fn, name='viewfeedback_fn'),
+       path('userdetails_fn/', views.userdetails_fn, name='userdetails_fn'),
 
 ]

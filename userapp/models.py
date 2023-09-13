@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class userregistrationdb(models.Model):
@@ -34,11 +35,24 @@ class customer_registrationdb(models.Model):
 class sendmessagedb(models.Model):
 
     user_name=models.CharField(max_length=50,null=True,blank=True)
-
-
     fname=models.CharField(max_length=100,null=True,blank=True)
     lname=models.CharField(max_length=100,null=True,blank=True)
     message=models.CharField(max_length=100,null=True,blank=True)
+    gender=models.CharField(max_length=100,null=True,blank=True)
+    def __str__(self):
+        return self.user_name
+
+
+# class receivemsgdb(models.Model):
+#     user_name=models.ForeignKey(sendmessagedb,null=True,on_delete=models.CASCADE)
+#     # fname=models.ForeignKey(sendmessagedb,null=True,on_delete=models.CASCADE,related_name="receivemsg")
+#     # message=models.ForeignKey(sendmessagedb,null=True,on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return self.user_name
+
+
+
 
 
 
@@ -48,3 +62,16 @@ class feedbackdb(models.Model):
     user=models.CharField(max_length=100,null=True,blank=True)
     # fname=models.CharField(max_length=100, null=True, blank=True)
     feedback=models.CharField(max_length=100,null=True,blank=True)
+class contactdb(models.Model):
+    msg=models.CharField(max_length=100,null=True,blank=True)
+    name=models.CharField(max_length=100,null=True,blank=True)
+    email=models.CharField(max_length=100,null=True,blank=True)
+    subject=models.CharField(max_length=100,null=True,blank=True)
+
+
+class successstorydb(models.Model):
+    name=models.CharField(max_length=100, null=True, blank=True)
+    pname=models.CharField(max_length=100,null=True,blank=True)
+    c_image=models.ImageField(upload_to="successstory_photo",null=True,blank=True)
+    story = models.CharField(max_length=100, null=True, blank=True)
+

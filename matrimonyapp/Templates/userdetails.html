@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-block table-border-style">
+<div class="table-responsive">
+    <table class="table table-active"  >
+        <thead >
+            <tr>
+                <th>Customer name</th>
+                <th>Customer pic</th>
+                <th>Contact no</th>
+                <th>Email</th>
+                <th>Dob</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Father's name</th>
+                <th>Mother's name</th>
+                <th>Father's contact</th>
+                <th>Work address</th>
+                <th>Hobby</th>
+                <th>Qualification</th>
+                <th>Occupation</th>
+
+                <th>Caste</th>
+
+            </tr>
+            </thead>
+            <tbody>
+             {% for i in data %}
+
+                <tr class="table-info">
+<!--                    <th scope="row">1</th>-->
+                    <td>{{i.fname}}</td>
+                    <td><img src="{{i.picture.url}}" width="80px" height="80px"></td>
+                    <td>{{i.contact}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.dob}}</td>
+                    <td>{{i.city}}</td>
+                    <td>{{i.address}}</td>
+                    <td>{{i.fathername}}</td>
+                    <td>{{i.mothername}}</td>
+                    <td>{{i.fathercontact}}</td>
+                    <td>{{i.workaddress}}</td>
+                    <td>{{i.hobby}}</td>
+                    <td>{{i.qualification}}</td>
+                    <td>{{i.occupation}}</td>
+                    <td>{{i.caste}}</td>
+                    <form action="{% url 'editcustomer_fn'  dataid=i.id %}">
+                    <td>
+                   <button type="submit" class="btn btn-info">edit</button>
+                    </td>
+                  </form>
+                  <form action="{% url 'deletecustomer_fn'  dataid=i.id %}">
+                    <td>
+                      <button type="submit" class="btn btn-danger">delete</button>
+                    </td>
+                  </form>
+
+
+
+                </tr>
+             {% endfor %}
+
+            </tbody>
+            </table>
+            </div>
+            </div>
+
+
+</body>
+</html>
+{% endblock %}

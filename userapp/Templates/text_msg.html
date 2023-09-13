@@ -13,6 +13,8 @@
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="{% static 'gallery/assets/css/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
             <link rel="stylesheet" href="{% static 'gallery/assets/css/owl.carousel.min.css' %}">
             <link rel="stylesheet" href="{% static 'gallery/assets/css/flaticon.css' %}">
             <link rel="stylesheet" href="{% static 'gallery/assets/css/slicknav.css' %}">
@@ -58,11 +60,20 @@
                                     <ul id="navigation">
                                         <li><a href="{% url 'home_fn' %}">Home</a></li>
                                         <li><a href="{% url 'sendmessage_fn' %}">Send message</a></li>
-                                        <li><a href="gallery.html">Requested messages</a></li>
-                                        <li><a href="booking.html">Send feedback</a></li>
+                                        <li><a href="{% url 'requestedmsg_fn' %}">Requested messages</a></li>
+                                        <li><a href="{% url 'text_feedback_fn' %}">Send feedback</a></li>
                                         <li>
                                             {% if request.session.username %}
                                             <a href="">{{request.session.username}}</a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'displayuser_details' %}">Edit profile</a></li>
+                                                <li><a href="{% url 'text_successstory_fn' %}">Upload success story</a></li>
+                                                <li><a href="{% url 'viewstory_fn' %}">Your success story</a></li>
+<!--                                                <li><a href="{% url 'viewallstories2' %}">Your success story</a></li>-->
+
+
+
+                                            </ul>
                                         </li>
                                          <li>
 
@@ -74,7 +85,7 @@
 
                                                 <li><a href="{% url 'malegallery_fn'  %}">Male</a></li>
 
-                                                <li><a href="elements.html">Others</a></li>
+                                                <li><a href="{% url 'viewallstories'  %}">success stories</a></li>
 
                                             </ul>
                                         </li>
@@ -106,7 +117,7 @@
         <!-- slider Area Start-->
         <div class="slider-area ">
             <!-- Mobile Menu -->
-            <div class="single-slider slider-height2  hero-overly d-flex align-items-center" data-background="{% static 'gallery/assets/img/hero/back5.jpg' %}">
+            <div class="single-slider slider-height2  hero-overly d-flex align-items-center" style="height:50px;" data-background="{% static 'gallery/assets/img/hero/back5.jpg' %}">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
@@ -132,11 +143,11 @@
                     <div class="col-lg-12">
                         <div class="section-tittle text-center" style="margin-top:-150px;">
                             <img src="{% static 'gallery/assets/img/memories/section_tittle_flowre.png' %}" alt="">
-                            <h2>PROFILES</h2>
+                            <h2>MESSAGE</h2>
                         </div>
                     </div>
                 </div><div>
-                   <form method="post" action="{% url 'savemessage_fn' %}" enctype="multipart/form-data" >
+                   <form method="post" action="{% url 'savemessage_fn'  %}" enctype="multipart/form-data" >
                      {% csrf_token %}
                     <div  style="width:500px;">
                     <label style="margin-left:300px;margin-top:20px;">Write message:</label>
@@ -144,10 +155,12 @@
                         <textarea cols="97" rows="3" style="margin-left:300px;" name="message"></textarea>
                     </div>
                     <div style="margin-left:300px;">
-                      <input type="submit" placeholder="send">
+                      <input type="submit" placeholder="send" value="send">
                     </div>
                        <input type="hidden" value="{{profile.fname}}" name="fname" style="width:500px;margin-left:600px;margin-top:-40px;" >
                        <input type="hidden" value="{{request.session.username}}" name="username">
+                       <input type="hidden" value="{{profile.gender}}" name="gender">
+
                     </form>
             </div>
 

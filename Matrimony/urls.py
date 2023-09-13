@@ -26,7 +26,8 @@ import userapp.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('matrimonyapp/', include(matrimonyapp.urls)),
-    path('userapp/', include(userapp.urls)),
+    path("", include(userapp.urls)),
+
 ]
 urlpatterns +=staticfiles_urlpatterns()
 urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

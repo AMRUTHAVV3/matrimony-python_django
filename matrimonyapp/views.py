@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from userapp.models import feedbackdb
+from userapp.views import home_fn
+from userapp.models import customer_registrationdb
+
 
 
 # Create your views here.
@@ -74,14 +77,15 @@ def updatecategory(req,dataid):
         return redirect(displaycustomer_fn)
 
 def deletecustomer_fn(req,dataid):
-    data=customerdb.objects.filter(id=dataid)
+    data=customer_registrationdb.objects.filter(id=dataid)
     data.delete()
-    return redirect(displaycustomer_fn)
+    return redirect(userdetails_fn)
 def login_fn(req):
     return render(req,'login.html')
 
 def admin_login(request):
     if request.method == "POST":
+
         uname = request.POST.get('username')
         pwd = request.POST.get('pass')
         if User.objects.filter(username__contains=uname).exists():
@@ -101,8 +105,12 @@ def admin_login(request):
 def admin_logout(req):
     del req.session['username']
     del req.session['password']
-    return redirect(login_fn)
+    return redirect(home_fn)
 
 def viewfeedback_fn(req):
     data=feedbackdb.objects.all()
     return render(req,'viewfeedback.html',{'data':data})
+
+def userdetails_fn(req):
+    data=customer_registrationdb.objects.all()
+    return render(req,'userdetails.html',{'data':data})

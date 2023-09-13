@@ -13,6 +13,8 @@
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="{% static 'gallery/assets/css/bootstrap.min.css' %}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
             <link rel="stylesheet" href="{% static 'gallery/assets/css/owl.carousel.min.css' %}">
             <link rel="stylesheet" href="{% static 'gallery/assets/css/flaticon.css' %}">
             <link rel="stylesheet" href="{% static 'gallery/assets/css/slicknav.css' %}">
@@ -63,6 +65,15 @@
                                         <li>
                                             {% if request.session.username %}
                                             <a href="">{{request.session.username}}</a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'displayuser_details' %}">Edit profile</a></li>
+                                                <li><a href="{% url 'text_successstory_fn' %}">Upload success story</a></li>
+                                                <li><a href="{% url 'viewstory_fn' %}">Your success story</a></li>
+<!--                                                <li><a href="{% url 'viewallstories2' %}">Your success story</a></li>-->
+
+
+
+                                            </ul>
                                         </li>
                                          <li>
 
@@ -74,7 +85,7 @@
 
                                                 <li><a href="{% url 'malegallery_fn'  %}">Male</a></li>
 
-                                                <li><a href="elements.html">Others</a></li>
+                                                <li><a href="{% url 'viewallstories'  %}">success stories</a></li>
 
                                             </ul>
                                         </li>
