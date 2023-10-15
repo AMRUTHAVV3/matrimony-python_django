@@ -1,3 +1,4 @@
+
 <!doctype html>
 {% load static %}
 <html class="no-js" lang="zxx">
@@ -50,7 +51,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-2">
                             <div class="logo">
-                                <a href="index.html"><img src="{% static 'user/assets/img/logo/choice1.jpg' %}"  height="50px" width="50px;" style="margin-left:-200px;" alt=""></a>
+<!--                                <a href="index.html"><img src="{% static 'user/assets/img/logo/choice1.jpg' %}"  height="50px" width="50px;" style="margin-left:-200px;" alt=""></a>-->
                             </div>
                         </div>
                         <div class="" style="margin-left:100px;">
@@ -67,7 +68,7 @@
                                                 <li><a href="{% url 'sendmessage_fn' %}">Send</a></li>
                                             </ul>
 
-                                        </li>                                        <li><a href="booking.html">Send feedback</a></li>
+                                        </li>                                        <li><a href="{% url 'text_feedback_fn' %}">Send feedback</a></li>
                                         <li>
                                             {% if request.session.username %}
                                             <a href="">{{request.session.username}}</a>
@@ -94,6 +95,36 @@
                                                 <li><a href="{% url 'viewallstories'  %}">success stories</a></li>
 
                                             </ul>
+                                        </li>
+                                        <li><a href="">search by </a>
+
+                                                <ul class="submenu">
+                                                <li><a href="">Caste</a>
+                                                <ul class="submenu" style="margin-left:130px;">
+                                                <li ><a href="{% url 'filter_malebycaste' %}?caste=SC/ST" >SC/ST</a></li>
+
+                                                <li><a href="{% url 'filter_malebycaste' %}?caste=OBC">OBC</a></li>
+
+                                                <li><a href="{% url 'filter_malebycaste' %}?caste=THIYYA">THIYYA</a></li>
+
+                                            </ul></li>
+
+                                                <li><a href="">JOBS</a>
+                                                <ul class="submenu" style="margin-left:130px;">
+                                                    <li><a href="{% url 'filter_malebyjob' %}?job=devops%20engineer">devops engineer</a></li>
+                                                    <li><a href="{% url 'filter_malebyjob' %}?job=Developer">Developer</a></li>
+                                                    <li><a href="{% url 'filter_malebyjob' %}?job=tester">tester</a></li>
+
+                                            </ul></li>
+
+<!--                                                <li><a href="{% url 'viewallstories'  %}">success stories</a></li>-->
+
+                                            </ul></li>
+                                        <li>
+<!--                                            <form method="GET" action="{% url 'search_results' %}">-->
+<!--              <input type="text" style="border-radius: 5px;" name="query" placeholder="   Search  here    ">-->
+<!--              <button  type="submit">Search</button>-->
+<!--        </form>-->
                                         </li>
                                         {% endif %}
 <!--                                        <li><a href="#">Pages</a>-->
@@ -123,23 +154,18 @@
         <!-- slider Area Start-->
         <div class="slider-area ">
             <!-- Mobile Menu -->
-            <div class="single-slider slider-height2  hero-overly d-flex align-items-center" data-background="{% static 'gallery/assets/img/hero/back5.jpg' %}">
+            <div class="single-slider slider-height2  hero-overly d-flex align-items-center" data-background="{% static 'gallery/assets/img/hero/about_hero.jpg' %}">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap text-center">
-                                <div style="margin-top:-30px;">
-                        <img src="{{profile.picture.url}}" width="220px;height:300px;" style="margin-left:-1200px;margin-top:20px;">
-<!--                    <input type="text" style="width:500px;margin-left:600px;margin-top:-40px;" >-->
-                </div>
-                                <h3 style="color:white;">SUCCESS STORY</h3>
+                                <h2>Male Profiles</h2>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- slider End -->
         <!-- our Memories start -->
         <div class="our-memories-area section-padding2">
@@ -149,57 +175,126 @@
                     <div class="col-lg-12">
                         <div class="section-tittle text-center" style="margin-top:-150px;">
                             <img src="{% static 'gallery/assets/img/memories/section_tittle_flowre.png' %}" alt="">
-                            <h2>Add Success Story</h2>
+                            <h2>PROFILES</h2>
                         </div>
                     </div>
-
-                <div style="background-color:rgb(253,245,230);width:1000px;height:800px;padding-top:20px;margin-left:200px;">
-                   <form method="post" action="{% url 'updatesuccessstory_fn' %}" enctype="multipart/form-data" >
-
-                     {% csrf_token %}
-                       <input type="text" style="width:770px;margin-left:100px;height:40px;;border-radius:7px;border:none;" value="{{request.session.username}}" name="username">
-{% for i in data %}
-
-                       <div>
-                           <label style="margin-left:100px;margin-top:20px;margin-left:100px;">partners name</label><br>
-     <input type="text" style="width:770px;margin-left:100px;height:40px;;border-radius:7px;border:none;" value="{{i.pname}}" name="pname"></div>
-
-                       <div>
-                           <label style="margin-left:100px;margin-top:20px;margin-left:370px;">Image with partner</label><br>
-                           <div class="form-group row">
-
-
-                               <div  style="margin-left:110px;width:780px;">
-                                   <img src="{{i.c_image.url}}" width="300" height="300" style="margin-left:200px;">
-                                   <input type="file" class="form-control" name="cphoto">
-                               </div>
-                           </div>
-
-
-
-                       </div>
-                    <div  style="width:500px;">
-
-                    <label style="margin-left:100px;margin-top:20px;">Write successstory</label>
-
-                        <textarea cols="94" rows="3" style="margin-left:100px;border-radius:10px;" name="story">{{i.story}}</textarea>
-                    </div>
-
-
-                    <div style="margin-left:100px;">
-                      <input type="submit" placeholder="Edit" value="update" style="background-color:blue;border-radius:5px;margin-left:300px;margin-top:30px;color:white;border:none;width:80px;height:30px;">
-                       <a href="{% url 'deletesuccess_story' %}" type="submit" style="width:80px;height:30px;background-color:red;border-radius:5px;text-align:center;padding-top:3px;" >delete</a>
-                    </div>
-{% endfor %}
-<!--                       <input type="hidden" value="{{request.session.username}}" name="username">-->
-
-                    </form>
-                     </div>
-            </div>
-
-
                 </div>
+                <div class="row">
+                    {% for i in cs_data %}
+                    <div class="col-lg-3 col-md-3">
+                        <div class="memory">
+                            <div class="memories-img">
+                                <img src="{{i.picture.url}}" width="100" height="400" alt="">
+                                <div class="menorie-icon" href="{{i.picture.url}}">
+                                    <i class="ti-plus"></i>
+<!--                                    <div style="background-color:rgb(255,228,225);margin-top:148px;height:50px;padding-left:-70px;padding-top:-30px;">-->
+<!--                            <h5 style="margin-left:-190px;padding-top:12px;">{{i.fname}}</h5>-->
+<!--&lt;!&ndash;                                        <div style="width:120px;text-align:center;height:35px;border-radius:10px;background-color:rgb(255,105,180);margin-left:145px;margin-top:-35px;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div style="margin-top:100px;">  <a href="{% url 'viewprofile_fn' dataid=i.id %}" type="submit" >view profile</a></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
 
+<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;</div>-->
+                                </div><br><br>
+
+
+
+
+                            </div>
+
+                        </div>
+ <div style="background-color:rgb(255,228,225);margin-top:-16px;height:50px;padding-left:-70px;padding-top:-30px;">
+                            <h5 style="padding-top:12px;">{{i.fname}}</h5>
+                                        <div style="width:120px;text-align:center;height:35px;border-radius:10px;background-color:rgb(255,105,180);margin-left:145px;margin-top:-35px;">
+                                    <div style="margin-top:-35px;">  <a href="{% url 'viewprofile_fn' dataid=i.id %}" type="submit" >view profile</a></div>
+                                            </div>
+
+                                        <!--                        </div>--></div>
+
+                    </div>
+
+                    {% endfor %}
+
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories2.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories2.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories3.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories3.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories4.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories4.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories5.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories5.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories2.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories2.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                     <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories1.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories1.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories2.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories2.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-4 col-md-4">-->
+<!--                        <div class="memory">-->
+<!--                            <div class="memories-img">-->
+<!--                                <img src="{% static 'gallery/assets/img/memories/memories3.jpg' %}" alt="">-->
+<!--                                <div class="menorie-icon" href="{% static 'gallery/assets/img/memories/memories3.jpg' %}">-->
+<!--                                    <i class="ti-plus"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
 
             </div>
 
@@ -332,46 +427,6 @@
 		<!-- Jquery Plugins, main Jquery -->
         <script src="{% static 'gallery/./assets/js/plugins.js' %}"></script>
         <script src="{% static 'gallery/./assets/js/main.js' %}"></script>
-   <style>
-    .inputbox{
-          position:absolute;
-          margin:30px 0;
-          width:400px;
-          margin-left:600px;
-          border-bottom:2px solid black;
-
-
-
-
-    }
-    .inputbox label{
-          margin-left:-90px;
-
-          top:50%;
-          left:5px;
-          transform:translateY(-50%);
-          color:red;
-          font-size:1em;
-          pointer-events:none;
-
-
-
-    }
-    .inputbox input{
-
-           width:600%;
-           height:50px;
-           background:transparent;
-           border:none;
-           outline:none;
-           font-size:1em;
-           padding-top:-500px;
-           padding:0 35px 0 5px;
-           color:black;
-
-    }
-
-</style>
 
     </body>
 </html>

@@ -5,7 +5,11 @@ from django.contrib.auth import authenticate,login
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib import messages
-from userapp.models import customer_registrationdb,sendmessagedb,feedbackdb,contactdb,successstorydb
+from userapp.models import customer_registrationdb,sendmessagedb,feedbackdb,contactdb,successstorydb,verificationdb
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import verificationdb, customer_registrationdb
+from django.db.models import Q
+
 
 
 
@@ -134,12 +138,28 @@ def malegallery_fn(req):
 
     return render(req,'malegallery.html',context)
 
-def viewprofile_fn(req,dataid):
-    profile=customer_registrationdb.objects.get(id=dataid)
-    context={
-        'profile':profile
+
+def viewprofile_fn(req, dataid):
+    # Assuming you are using the sender's ID in the URL parameter
+
+    profile = customer_registrationdb.objects.get(id=dataid)
+    msgs = verificationdb.objects.filter(sender=req.session['username'], reciever=profile.fname)
+
+    #print(msgs?)
+    if(msgs):
+       status = msgs[0].status
+    else:
+        status= ""
+    context = {
+        'profile': profile,
+        'msgs': msgs,
+
+        'status': status
     }
-    return render(req,'view profile.html',context)
+
+
+    return render(req, 'view profile.html', context)
+
 
 def savemessage_fn(req):
 
@@ -248,7 +268,6 @@ def text_msg_fn(req,dataid):
         'profile': profile
     }
     return render(req,'text_msg.html',context)
-
 def savetext_msg(req):
     if req.method=='POST':
         un=req.POST.get('username')
@@ -394,12 +413,14 @@ def viewuserprofile(req):
     p=customer_registrationdb.objects.filter(username=req.session['username'])
 
     return render(req,'viewuserprofile.html',{'p':p})
+
 def search_results(request):
     if request.method == "GET":
         query = request.GET.get('query')
 
         # Search in Catacarsdb and Carproductdb for matching names and items
-        brand_results = customer_registrationdb.objects.filter(occupation__icontains=query)
+        brand_results = customer_registrationdb.objects.filter(occupation__icontains=query).filter(gender="female")
+        # jobsearch=customer_registrationdb.objects.filter(occupation__icontains=query)
         # cars_results = Carproductdb.objects.filter(ProName3__icontains=query)
         # brand = Catacarsdb.objects.all()
 
@@ -407,8 +428,116 @@ def search_results(request):
 
         context = {
             'brand_results': brand_results,
+            # 'jobsearch':jobsearch
             # 'cars_results': cars_results,
             # 'brand': brand
         }
 
         return render(request, 'search_result.html', context)
+
+def filter_byjob(request):
+    if request.method == "GET":
+        job = request.GET.get('job')
+
+
+        print("--------",job)
+        data = customer_registrationdb.objects.filter(occupation__icontains=job).filter(gender="female")
+
+
+
+        print("======",data)
+        print(data)
+        return render(request,'jobdisplay.html',{'data':data})
+
+def filter_bycaste(request):
+    if request.method == "GET":
+
+        cas=request.GET.get('caste')
+
+        print("--------",cas)
+
+        cs_data = customer_registrationdb.objects.filter(caste__icontains=cas).filter(gender="female")
+
+        print("======",cs_data)
+
+        return render(request,'castedisplay.html',{'cs_data':cs_data})
+
+
+
+
+
+def search_male(req):
+    # fdata = customer_registrationdb.objects.filter(gender="male").filter(occupation__icontains=query)
+    if req.method=='GET':
+        query=req.GET.get('query')
+
+
+        fdata = customer_registrationdb.objects.filter(gender="male").filter(occupation__icontains=query)
+
+
+        context = {
+
+            'fdata':fdata
+        }
+        return render(req, 'search_of_male.html', context)
+
+
+
+def new_fn(req):
+    return render(req,'new.html')
+
+def filter_malebyjob(request):
+    if request.method == "GET":
+        job = request.GET.get('job')
+
+
+        print("--------",job)
+
+        data2 = customer_registrationdb.objects.filter(occupation__icontains=job).filter(gender="male")
+
+
+        print("======",data2)
+        print(data2)
+        return render(request,'male_jobfilter.html',{'data2':data2})
+
+def filter_malebycaste(request):
+    if request.method == "GET":
+
+        cas=request.GET.get('caste')
+
+        print("--------",cas)
+
+        cs_data = customer_registrationdb.objects.filter(caste__icontains=cas).filter(gender="male")
+
+        print("======",cs_data)
+
+        return render(request,'male_castefilter.html',{'cs_data':cs_data})
+
+def saverequest(req):
+    if req.method=='GET':
+        sender=req.GET.get('username')
+        na=req.GET.get('name')
+        st=req.GET.get('btn')
+        obj=verificationdb(sender=sender,reciever=na,status=st)
+        obj.save()
+        return redirect(home_fn)
+
+def view_requests(req):
+    receivemsg = verificationdb.objects.filter(reciever=req.session['fname'])
+    return render(req,'view_requested_msg.html',{'receivemsg':receivemsg})
+
+def varification(req,dataid):
+    stat=verificationdb.objects.get(id=dataid)
+    if stat.status == 'request':
+        verificationdb.objects.filter(id=dataid).update(status='accept')
+    return redirect(view_requests)
+
+def disapprove(req,dataid):
+    stat = verificationdb.objects.get(id=dataid)
+    if stat.status == 'request':
+        verificationdb.objects.filter(id=dataid).update(status='cancel')
+    return redirect(view_requests)
+
+def view_sendmsg(req):
+    sendmsg = verificationdb.objects.filter(sender=req.session['username'])
+    return render(req,'view_user_sendmsg.html',{'sendmsg':sendmsg})

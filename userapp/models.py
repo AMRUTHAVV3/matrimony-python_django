@@ -9,6 +9,7 @@ class userregistrationdb(models.Model):
     mobile=models.IntegerField()
 
 class customer_registrationdb(models.Model):
+
     fname=models.CharField(max_length=50,null=True,blank=True)
     lname=models.CharField(max_length=50,null=True,blank=True)
     gender=models.CharField(max_length=50,null=True,blank=True)
@@ -75,3 +76,8 @@ class successstorydb(models.Model):
     c_image=models.ImageField(upload_to="successstory_photo",null=True,blank=True)
     story = models.CharField(max_length=100, null=True, blank=True)
 
+class verificationdb(models.Model):
+
+    sender=models.CharField(max_length=100, null=True, blank=True)
+    reciever=models.CharField(max_length=100, null=True, blank=True)
+    status=models.CharField(max_length=100, null=True, blank=True)

@@ -85,7 +85,6 @@ def login_fn(req):
 
 def admin_login(request):
     if request.method == "POST":
-
         uname = request.POST.get('username')
         pwd = request.POST.get('pass')
         if User.objects.filter(username__contains=uname).exists():
